@@ -321,6 +321,13 @@ section{padding:84px 0}
 .disp{font-size:13px;font-weight:700;margin:0;padding:6px 10px;border-radius:10px}.disp.ei{background:var(--ok-bg);color:var(--ok)}.disp.bp{background:#fff3dc;color:#9a5d00}
 .tot2{background:transparent;border-style:dashed}
 .wa-b{background:#e7f8ee;border-radius:14px 14px 14px 4px;padding:10px 12px;color:#123d24;animation:entra .4s}.wa-b small{display:block;font-size:11px;color:#3d7a55;margin-bottom:4px}.wa-b p{white-space:pre-line;font-size:13px;margin:0}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:14px}
+.seg button{font:inherit;font-size:14px;font-weight:700;border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.badge2{font-style:normal;background:#e5484d;color:#fff;font-size:11px;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center;padding:0 5px}
+.llam{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff3dc;color:#7a4a00;border-radius:10px;padding:8px 10px;font-size:13px;font-weight:700;animation:entra .4s}
+.carta-mini{background:var(--signal);color:var(--signal-ink);border-radius:12px;padding:12px}.carta-mini b{display:block}.carta-mini small{font:600 11px var(--mono);text-transform:uppercase;opacity:.85}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:6px}.dos .dbtn{font-size:13px;padding:10px 6px}
 @media (max-width:980px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr 1fr}.dgrid.d3 .pane:first-child{grid-column:1/-1}}
 @media (max-width:640px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr}.pane{min-height:0}}
 
@@ -726,25 +733,45 @@ function caja(id, titulo, sub, panes) {
   return panes.map(([n, cls]) => { const body = $('div', { cls: 'pane-b' }); g.append($('div', { cls: 'pane ' + (cls || '') }, $('div', { cls: 'pane-h', txt: n }), body)); return body; });
 }
 
-/* Restaurante: mesero → cocina → caja */
+/* Restaurante: como mesero o como cliente → cocina → caja */
 (() => {
   const P = [['Bandeja paisa', 34000], ['Churrasco 300 g', 38000], ['Arroz con pollo', 26000], ['Limonada de coco', 9000], ['Cerveza', 7000]];
-  const [pm, pc, pk] = caja('p-rest', 'Toma un pedido como mesero', 'Escoge la mesa, agrega platos y síguelo hasta la caja.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
-  let mesa = 1, cart = {}, tks = [], n = 0, cobrado = 0, aviso = '';
+  const [pm, pc, pk] = caja('p-rest', 'Pruébalo como mesero o como cliente', 'Cambia de vista: toma el pedido como mesero, o pide y llama al mesero desde la mesa.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
+  const box = pm.closest('.dbox'), head = pm.parentElement.querySelector('.pane-h');
+  const seg = $('div', { cls: 'seg', role: 'group', 'aria-label': 'Ver como' }); box.insertBefore(seg, box.querySelector('.dgrid'));
+  let rol = 'mesero', mesa = 1, cart = {}, cartC = {}, tks = [], n = 0, cobrado = 0, aviso = '', avisoC = '', llam = [];
+  const MC = 4;
+  function filas(c) { return P.map(([nm, pr]) => { const q = c[nm] || 0; return $('div', { cls: 'fila' }, $('div', {}, $('b', { txt: nm }), $('small', { txt: pesos(pr) })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Quitar ' + nm, txt: '−', on: { click: () => { if (q) { c[nm] = q - 1; render(); } } } }), $('span', { txt: q }), $('button', { type: 'button', 'aria-label': 'Agregar ' + nm, txt: '+', on: { click: () => { c[nm] = q + 1; render(); } } }))); }); }
+  const total = c => P.reduce((s, [nm, pr]) => s + (c[nm] || 0) * pr, 0);
+  function enviar(c, m, quien) { tks.unshift({ id: ++n, mesa: m, quien, items: P.filter(([nm]) => c[nm]).map(([nm]) => [c[nm], nm]), tot: total(c), est: 'nuevo' }); for (const k in c) delete c[k]; }
+  function llamar(tipo) { if (!llam.some(l => l.tipo === tipo)) llam.push({ mesa: MC, tipo }); avisoC = tipo === 'cuenta' ? '✓ Pediste la cuenta. El mesero ya la trae.' : '✓ Llamaste al mesero. Ya viene a tu mesa.'; render(); }
   function render() {
+    seg.replaceChildren(...[['mesero', 'Ver como mesero'], ['cliente', 'Ver como cliente en la mesa']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
     pm.replaceChildren();
-    if (aviso) pm.append($('div', { cls: 'aviso', txt: aviso }));
-    pm.append($('div', { cls: 'chips' }, ...[1, 2, 3, 4, 5, 6].map(m => $('button', { type: 'button', cls: 'chip' + (m === mesa ? ' on' : ''), txt: 'Mesa ' + m, on: { click: () => { mesa = m; render(); } } }))));
-    P.forEach(([nm, pr]) => { const q = cart[nm] || 0; pm.append($('div', { cls: 'fila' }, $('div', {}, $('b', { txt: nm }), $('small', { txt: pesos(pr) })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Quitar ' + nm, txt: '−', on: { click: () => { if (q) { cart[nm] = q - 1; render(); } } } }), $('span', { txt: q }), $('button', { type: 'button', 'aria-label': 'Agregar ' + nm, txt: '+', on: { click: () => { cart[nm] = q + 1; render(); } } })))); });
-    const tot = P.reduce((s, [nm, pr]) => s + (cart[nm] || 0) * pr, 0);
-    pm.append($('button', { type: 'button', cls: 'dbtn full', txt: tot ? 'Enviar mesa ' + mesa + ' a cocina · ' + pesos(tot) : 'Agrega platos para enviar', on: { click: () => { if (!tot) return; tks.unshift({ id: ++n, mesa, items: P.filter(([nm]) => cart[nm]).map(([nm]) => [cart[nm], nm]), tot, est: 'nuevo' }); cart = {}; aviso = ''; render(); } } }));
+    if (rol === 'cliente') {
+      head.textContent = 'Celular del cliente · mesa ' + MC;
+      if (avisoC) pm.append($('div', { cls: 'aviso ok', txt: avisoC }));
+      pm.append($('div', { cls: 'carta-mini' }, $('b', { txt: 'La Brasa del Barrio' }), $('small', { txt: 'Mesa ' + MC + ' · carta digital' })));
+      pm.append($('div', { cls: 'dos' }, $('button', { type: 'button', cls: 'dbtn sec', txt: '🙋 Llamar al mesero', on: { click: () => llamar('mesero') } }), $('button', { type: 'button', cls: 'dbtn sec', txt: '🧾 Pedir la cuenta', on: { click: () => llamar('cuenta') } })));
+      pm.append(...filas(cartC)); const t = total(cartC);
+      pm.append($('button', { type: 'button', cls: 'dbtn full', txt: t ? 'Enviar mi pedido a cocina · ' + pesos(t) : 'Agrega platos para pedir', on: { click: () => { if (!t) return; enviar(cartC, MC, 'cliente'); avisoC = '✓ Tu pedido llegó a la cocina.'; render(); } } }));
+      pm.append($('small', { cls: 'linea', txt: 'Pedir desde la mesa es opcional: puedes dejar solo la carta y los botones.' }));
+    } else {
+      head.textContent = 'Celular del mesero';
+      llam.forEach((l, i) => pm.append($('div', { cls: 'llam' }, $('span', { txt: (l.tipo === 'cuenta' ? '🧾 Mesa ' + l.mesa + ' pide la cuenta' : '🙋 Mesa ' + l.mesa + ' te llama') }), $('button', { type: 'button', cls: 'dbtn sm', txt: 'Atender', on: { click: () => { llam.splice(i, 1); render(); } } }))));
+      if (aviso) pm.append($('div', { cls: 'aviso', txt: aviso }));
+      pm.append($('div', { cls: 'chips' }, ...[1, 2, 3, 4, 5, 6].map(m => $('button', { type: 'button', cls: 'chip' + (m === mesa ? ' on' : ''), txt: 'Mesa ' + m, on: { click: () => { mesa = m; render(); } } }))));
+      pm.append(...filas(cart)); const t = total(cart);
+      pm.append($('button', { type: 'button', cls: 'dbtn full', txt: t ? 'Enviar mesa ' + mesa + ' a cocina · ' + pesos(t) : 'Agrega platos para enviar', on: { click: () => { if (!t) return; enviar(cart, mesa, 'mesero'); aviso = ''; render(); } } }));
+    }
     pc.replaceChildren(); const enC = tks.filter(t => t.est === 'nuevo' || t.est === 'prep');
-    if (!enC.length) pc.append($('p', { cls: 'vacio2', txt: 'Los pedidos que envíe el mesero aparecen aquí.' }));
-    enC.forEach(t => pc.append($('div', { cls: 'tkt ' + t.est }, $('div', { cls: 'tkt-h' }, $('b', { txt: 'Mesa ' + t.mesa }), $('span', { cls: 'est2', txt: t.est === 'nuevo' ? 'Nuevo' : 'Preparando' })), $('ul', {}, ...t.items.map(([q, nm]) => $('li', { txt: q + '× ' + nm }))), $('button', { type: 'button', cls: 'dbtn sm', txt: t.est === 'nuevo' ? 'Empezar a preparar' : 'Marcar listo', on: { click: () => { if (t.est === 'nuevo') t.est = 'prep'; else { t.est = 'listo'; aviso = '🔔 Mesa ' + t.mesa + ': el pedido está listo para llevar'; } render(); } } }))));
+    if (!enC.length) pc.append($('p', { cls: 'vacio2', txt: 'Los pedidos del mesero o de la mesa aparecen aquí.' }));
+    enC.forEach(t => pc.append($('div', { cls: 'tkt ' + t.est }, $('div', { cls: 'tkt-h' }, $('b', { txt: 'Mesa ' + t.mesa }), $('span', { cls: 'est2', txt: t.est === 'nuevo' ? 'Nuevo' : 'Preparando' })), $('small', { cls: 'linea', txt: t.quien === 'cliente' ? 'Pedido desde la mesa' : 'Tomado por el mesero' }), $('ul', {}, ...t.items.map(([q, nm]) => $('li', { txt: q + '× ' + nm }))), $('button', { type: 'button', cls: 'dbtn sm', txt: t.est === 'nuevo' ? 'Empezar a preparar' : 'Marcar listo', on: { click: () => { if (t.est === 'nuevo') t.est = 'prep'; else { t.est = 'listo'; aviso = '🔔 Mesa ' + t.mesa + ': el pedido está listo para llevar'; if (t.mesa === MC) avisoC = '🍽️ Tu pedido ya está listo, va para tu mesa.'; } render(); } } }))));
     pk.replaceChildren(); const mesas = {}; tks.filter(t => t.est === 'listo').forEach(t => { mesas[t.mesa] = (mesas[t.mesa] || 0) + t.tot; });
     pk.append($('div', { cls: 'kpi' }, $('small', { txt: 'Cobrado hoy' }), $('b', { txt: pesos(cobrado) })));
+    if (llam.some(l => l.tipo === 'cuenta')) pk.append($('div', { cls: 'aviso', txt: '🧾 La mesa ' + MC + ' pidió la cuenta' }));
     if (!Object.keys(mesas).length) pk.append($('p', { cls: 'vacio2', txt: 'Cuando cocina marca un pedido listo, la cuenta aparece aquí.' }));
-    Object.entries(mesas).forEach(([m, v]) => pk.append($('div', { cls: 'cta' }, $('div', {}, $('b', { txt: 'Mesa ' + m }), $('small', { txt: 'Cuenta abierta' })), $('div', { cls: 'cta-d' }, $('b', { txt: pesos(v) }), $('button', { type: 'button', cls: 'dbtn sm ok', txt: 'Cobrar', on: { click: () => { tks.forEach(t => { if (t.est === 'listo' && t.mesa == m) t.est = 'cobrado'; }); cobrado += v; render(); } } })))));
+    Object.entries(mesas).forEach(([m, v]) => pk.append($('div', { cls: 'cta' }, $('div', {}, $('b', { txt: 'Mesa ' + m }), $('small', { txt: 'Cuenta abierta' })), $('div', { cls: 'cta-d' }, $('b', { txt: pesos(v) }), $('button', { type: 'button', cls: 'dbtn sm ok', txt: 'Cobrar', on: { click: () => { tks.forEach(t => { if (t.est === 'listo' && t.mesa == m) t.est = 'cobrado'; }); cobrado += v; if (+m === MC) llam = llam.filter(l => l.tipo !== 'cuenta'); render(); } } })))));
   }
   render();
 })();
