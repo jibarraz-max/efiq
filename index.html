@@ -12,7 +12,7 @@
 /* Idea: la comanda. Papel térmico, tinta y una señal naranja; el sitio se lee como un pedido que viaja de la mesa a la caja. */
 :root{
   --paper:#f3f4f0; --card:#ffffff; --ink:#15171b; --muted:#5d6168; --line:#dcdfd8;
-  --signal:#ff5b1f; --signal-ink:#ffffff; --ok:#14935f; --ok-bg:#e3f4ec; --warn-bg:#fff1e6;
+  --signal:#2563eb; --signal-ink:#ffffff; --ok:#14935f; --ok-bg:#e3f4ec; --warn-bg:#e8efff;
   --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -21,12 +21,12 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#111316; --card:#1a1d21; --ink:#eef0ec; --muted:#a3a8ae; --line:#2b2f35;
-    --signal:#ff6a33; --ok:#3cc28a; --ok-bg:#16302a; --warn-bg:#33231a; color-scheme:dark;
+    --signal:#5b8cff; --ok:#3cc28a; --ok-bg:#16302a; --warn-bg:#18233f; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --paper:#111316; --card:#1a1d21; --ink:#eef0ec; --muted:#a3a8ae; --line:#2b2f35;
-  --signal:#ff6a33; --ok:#3cc28a; --ok-bg:#16302a; --warn-bg:#33231a; color-scheme:dark;
+  --signal:#5b8cff; --ok:#3cc28a; --ok-bg:#16302a; --warn-bg:#18233f; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -167,7 +167,7 @@ section{padding:84px 0}
 .inv .ag{color:#c2410c}
 .bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;width:70px}
 .bar span{display:block;height:100%;background:var(--ok)}
-.bar.bajo span{background:var(--signal)}
+.bar.bajo span{background:#e08a00}
 .agenda{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .agenda span{border-radius:9px;padding:8px 4px;text-align:center;font:700 12px var(--mono);background:var(--paper)}
 .agenda .x{background:var(--ink);color:var(--paper);text-decoration:line-through;opacity:.55}
