@@ -266,6 +266,64 @@ section{padding:84px 0}
 @media (max-width:980px){.atm{grid-template-columns:1fr}}
 @media (max-width:520px){.atm-demo{grid-template-columns:1fr}.atm-cel{max-width:240px;margin:0 auto}}
 
+
+/* ---------- demos interactivas ---------- */
+.dbox{grid-column:1/-1;margin-top:36px;border:1.5px solid var(--signal);border-radius:22px;background:var(--card);padding:clamp(14px,2.4vw,24px)}
+.dbox-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:16px}
+.dbox-h b{font-family:var(--display);font-size:22px}.dbox-h small{color:var(--muted);font-size:15px;flex-basis:100%}
+.dtag{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;background:var(--signal);color:var(--signal-ink);padding:4px 10px;border-radius:99px}
+.dgrid{display:grid;gap:14px}.dgrid.d3{grid-template-columns:1.05fr 1fr 1fr}.dgrid.d2{grid-template-columns:1fr 1.2fr}
+.pane{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:340px}
+.pane-h{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line);background:var(--card)}
+.pane.pcel .pane-h{background:var(--ink);color:var(--paper)}
+.pane-b{padding:12px;display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 11px;cursor:pointer}
+.chip.on{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+.chip.off{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.fila{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.fila b{display:block;font-size:14px}.fila small{color:var(--muted);font-size:12px}
+.qty{display:flex;align-items:center;gap:6px}.qty span{min-width:34px;text-align:center;font:700 13px var(--mono)}
+.qty button,.x{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font-size:16px;cursor:pointer;line-height:1}
+.dbtn{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:12px;padding:11px 14px;background:var(--signal);color:var(--signal-ink);cursor:pointer}
+.dbtn.full{width:100%}.dbtn.sm{font-size:12px;padding:7px 10px;border-radius:9px;align-self:flex-start}
+.dbtn.sec{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}.dbtn.ok{background:var(--ok);color:#fff}.dbtn.wa{background:#1fa855;color:#fff}
+.tkt{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--signal);border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;animation:entra .4s cubic-bezier(.2,.9,.3,1.2)}
+.tkt.prep{border-left-color:#e08a00}.tkt-h{display:flex;justify-content:space-between;align-items:center}.tkt ul{margin:0;padding-left:18px;font-size:13px}
+.est2{font:700 10px var(--mono);text-transform:uppercase;background:var(--warn-bg);color:var(--signal);padding:3px 7px;border-radius:99px}.tkt.prep .est2{background:#fff3dc;color:#9a5d00}
+.vacio2{color:var(--muted);font-size:13px;text-align:center;padding:30px 8px;border:1.5px dashed var(--line);border-radius:12px;margin:0}
+.aviso{background:var(--warn-bg);color:var(--signal);font-weight:700;font-size:13px;border-radius:10px;padding:8px 10px}.aviso.ok{background:var(--ok-bg);color:var(--ok)}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px}.kpi small{display:block;color:var(--muted);font-size:12px}.kpi b{font:700 20px var(--mono)}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 10px;animation:entra .4s}
+.cta small{display:block;color:var(--muted);font-size:12px}.cta-d{display:flex;align-items:center;gap:8px}.cta-d b{font:700 14px var(--mono)}
+.mini{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:2px 0 0}
+.lbl{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}.lbl select{font:inherit;font-size:14px;padding:8px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.linea{color:var(--muted);font-size:12px}
+.track{list-style:none;padding:0;margin:6px 0;display:flex;flex-direction:column;gap:0}
+.track li{position:relative;padding:8px 0 14px 28px;font-size:14px;color:var(--muted)}
+.track li::before{content:"";position:absolute;left:6px;top:10px;width:12px;height:12px;border-radius:50%;border:2px solid var(--line);background:var(--card)}
+.track li::after{content:"";position:absolute;left:12px;top:24px;bottom:-2px;width:2px;background:var(--line)}.track li:last-child::after{display:none}
+.track li.hecho{color:var(--ink)}.track li.hecho::before{background:var(--ok);border-color:var(--ok)}
+.track li.ahora{color:var(--signal);font-weight:700}.track li.ahora::before{background:var(--signal);border-color:var(--signal);box-shadow:0 0 0 4px color-mix(in srgb,var(--signal) 25%,transparent)}
+.inv2{display:flex;flex-direction:column;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 10px}
+.inv2-h{display:flex;justify-content:space-between;font-size:14px}.inv2-h span{font:700 12px var(--mono)}.bajo2{color:#b46a00}
+.barra{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.barra i{display:block;height:100%;border-radius:99px;transition:width .5s}
+.horas{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.horas .chip{padding:7px 0;text-align:center}
+.err{color:#c0392b;font-size:13px;margin:0}
+.agenda2{display:grid;grid-template-columns:52px 1fr 1fr;gap:4px;font-size:12px}
+.agenda2>b{font-size:13px;text-align:center;padding:4px}.agenda2>small{color:var(--muted);font-family:var(--mono);padding-top:7px}
+.agenda2>span{min-height:30px;border-radius:8px;background:var(--card);border:1px dashed var(--line);padding:6px;font-weight:700;font-size:11px}
+.agenda2>span.oc{background:var(--line);border-style:solid;color:var(--muted)}.agenda2>span.nv{background:var(--warn-bg);border:1.5px solid var(--signal);color:var(--signal)}
+.agenda2>span.ult{animation:entra .5s cubic-bezier(.2,.9,.3,1.2)}
+.buzo-w{background:var(--card);border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;padding:14px}.buzo{width:150px;height:auto;transition:all .3s}
+.precio2{font:700 16px var(--mono)}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1.5px var(--line);cursor:pointer}.sw.on{box-shadow:0 0 0 2.5px var(--signal)}
+.disp{font-size:13px;font-weight:700;margin:0;padding:6px 10px;border-radius:10px}.disp.ei{background:var(--ok-bg);color:var(--ok)}.disp.bp{background:#fff3dc;color:#9a5d00}
+.tot2{background:transparent;border-style:dashed}
+.wa-b{background:#e7f8ee;border-radius:14px 14px 14px 4px;padding:10px 12px;color:#123d24;animation:entra .4s}.wa-b small{display:block;font-size:11px;color:#3d7a55;margin-bottom:4px}.wa-b p{white-space:pre-line;font-size:13px;margin:0}
+@media (max-width:980px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr 1fr}.dgrid.d3 .pane:first-child{grid-column:1/-1}}
+@media (max-width:640px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr}.pane{min-height:0}}
+
 /* ---------- comparación ---------- */
 .tabla-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .cmp{width:100%;border-collapse:collapse;min-width:560px}
@@ -657,6 +715,117 @@ tabs.forEach((t, i) => {
   t.onkeydown = e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); abrir(n.dataset.tab); } };
 });
 document.querySelectorAll('[data-ir]').forEach(a => a.addEventListener('click', () => abrir(a.dataset.ir)));
+
+/* ---------- Demos interactivas por sistema ---------- */
+const $ = (t, a = {}, ...h) => { const e = document.createElement(t); for (const k in a) { if (k === 'on') for (const ev in a.on) e.addEventListener(ev, a.on[ev]); else if (k === 'cls') e.className = a[k]; else if (k === 'txt') e.textContent = a[k]; else e.setAttribute(k, a[k]); } h.flat().forEach(c => c != null && e.append(c)); return e; };
+const pesos = n => '$' + Math.round(n).toLocaleString('es-CO');
+function caja(id, titulo, sub, panes) {
+  const g = $('div', { cls: 'dgrid d' + panes.length });
+  const box = $('div', { cls: 'dbox' }, $('div', { cls: 'dbox-h' }, $('span', { cls: 'dtag', txt: 'Pruébalo aquí' }), $('b', { txt: titulo }), $('small', { txt: sub })), g);
+  document.getElementById(id).appendChild(box);
+  return panes.map(([n, cls]) => { const body = $('div', { cls: 'pane-b' }); g.append($('div', { cls: 'pane ' + (cls || '') }, $('div', { cls: 'pane-h', txt: n }), body)); return body; });
+}
+
+/* Restaurante: mesero → cocina → caja */
+(() => {
+  const P = [['Bandeja paisa', 34000], ['Churrasco 300 g', 38000], ['Arroz con pollo', 26000], ['Limonada de coco', 9000], ['Cerveza', 7000]];
+  const [pm, pc, pk] = caja('p-rest', 'Toma un pedido como mesero', 'Escoge la mesa, agrega platos y síguelo hasta la caja.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
+  let mesa = 1, cart = {}, tks = [], n = 0, cobrado = 0, aviso = '';
+  function render() {
+    pm.replaceChildren();
+    if (aviso) pm.append($('div', { cls: 'aviso', txt: aviso }));
+    pm.append($('div', { cls: 'chips' }, ...[1, 2, 3, 4, 5, 6].map(m => $('button', { type: 'button', cls: 'chip' + (m === mesa ? ' on' : ''), txt: 'Mesa ' + m, on: { click: () => { mesa = m; render(); } } }))));
+    P.forEach(([nm, pr]) => { const q = cart[nm] || 0; pm.append($('div', { cls: 'fila' }, $('div', {}, $('b', { txt: nm }), $('small', { txt: pesos(pr) })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Quitar ' + nm, txt: '−', on: { click: () => { if (q) { cart[nm] = q - 1; render(); } } } }), $('span', { txt: q }), $('button', { type: 'button', 'aria-label': 'Agregar ' + nm, txt: '+', on: { click: () => { cart[nm] = q + 1; render(); } } })))); });
+    const tot = P.reduce((s, [nm, pr]) => s + (cart[nm] || 0) * pr, 0);
+    pm.append($('button', { type: 'button', cls: 'dbtn full', txt: tot ? 'Enviar mesa ' + mesa + ' a cocina · ' + pesos(tot) : 'Agrega platos para enviar', on: { click: () => { if (!tot) return; tks.unshift({ id: ++n, mesa, items: P.filter(([nm]) => cart[nm]).map(([nm]) => [cart[nm], nm]), tot, est: 'nuevo' }); cart = {}; aviso = ''; render(); } } }));
+    pc.replaceChildren(); const enC = tks.filter(t => t.est === 'nuevo' || t.est === 'prep');
+    if (!enC.length) pc.append($('p', { cls: 'vacio2', txt: 'Los pedidos que envíe el mesero aparecen aquí.' }));
+    enC.forEach(t => pc.append($('div', { cls: 'tkt ' + t.est }, $('div', { cls: 'tkt-h' }, $('b', { txt: 'Mesa ' + t.mesa }), $('span', { cls: 'est2', txt: t.est === 'nuevo' ? 'Nuevo' : 'Preparando' })), $('ul', {}, ...t.items.map(([q, nm]) => $('li', { txt: q + '× ' + nm }))), $('button', { type: 'button', cls: 'dbtn sm', txt: t.est === 'nuevo' ? 'Empezar a preparar' : 'Marcar listo', on: { click: () => { if (t.est === 'nuevo') t.est = 'prep'; else { t.est = 'listo'; aviso = '🔔 Mesa ' + t.mesa + ': el pedido está listo para llevar'; } render(); } } }))));
+    pk.replaceChildren(); const mesas = {}; tks.filter(t => t.est === 'listo').forEach(t => { mesas[t.mesa] = (mesas[t.mesa] || 0) + t.tot; });
+    pk.append($('div', { cls: 'kpi' }, $('small', { txt: 'Cobrado hoy' }), $('b', { txt: pesos(cobrado) })));
+    if (!Object.keys(mesas).length) pk.append($('p', { cls: 'vacio2', txt: 'Cuando cocina marca un pedido listo, la cuenta aparece aquí.' }));
+    Object.entries(mesas).forEach(([m, v]) => pk.append($('div', { cls: 'cta' }, $('div', {}, $('b', { txt: 'Mesa ' + m }), $('small', { txt: 'Cuenta abierta' })), $('div', { cls: 'cta-d' }, $('b', { txt: pesos(v) }), $('button', { type: 'button', cls: 'dbtn sm ok', txt: 'Cobrar', on: { click: () => { tks.forEach(t => { if (t.est === 'listo' && t.mesa == m) t.est = 'cobrado'; }); cobrado += v; render(); } } })))));
+  }
+  render();
+})();
+
+/* Domicilios: pedido → panel → seguimiento + inventario */
+(() => {
+  const P = [['Lomo de res', 18000, 12], ['Costilla', 14000, 8], ['Pechuga', 12000, 10], ['Chorizo', 16000, 5]];
+  const PREP = ['Entero', 'Porcionado', 'Molido', 'En mariposa'], EST = ['Recibido', 'Preparando', 'En camino', 'Entregado'];
+  const [pc, pp, pi] = caja('p-dom', 'Haz un pedido a domicilio', 'Pide por libras, despáchalo desde el panel y mira cómo baja el inventario.', [['Celular del cliente', 'pcel'], ['Panel del negocio'], ['Inventario']]);
+  const stock = Object.fromEntries(P.map(p => [p[0], p[2]])); let sel = P[0][0], lb = 1, prep = PREP[0], cart = [], ped = [], n = 0, mio = null;
+  function render() {
+    pc.replaceChildren();
+    if (mio) {
+      const o = ped.find(x => x.id === mio);
+      pc.append($('p', { cls: 'mini', txt: 'Pedido #' + o.id + ' · ' + pesos(o.tot) }), $('ol', { cls: 'track' }, ...EST.map((e, i) => $('li', { cls: i < o.e ? 'hecho' : i === o.e ? 'ahora' : '' , txt: e }))));
+      pc.append($('button', { type: 'button', cls: 'dbtn full sec', txt: 'Hacer otro pedido', on: { click: () => { mio = null; render(); } } }));
+    } else {
+      pc.append($('div', { cls: 'chips' }, ...P.map(([nm]) => $('button', { type: 'button', cls: 'chip' + (nm === sel ? ' on' : ''), txt: nm, on: { click: () => { sel = nm; render(); } } }))));
+      const pr = P.find(p => p[0] === sel)[1];
+      pc.append($('div', { cls: 'fila' }, $('div', {}, $('b', { txt: sel }), $('small', { txt: pesos(pr) + ' / libra' })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Menos', txt: '−', on: { click: () => { lb = Math.max(.5, lb - .5); render(); } } }), $('span', { txt: lb + ' lb' }), $('button', { type: 'button', 'aria-label': 'Más', txt: '+', on: { click: () => { lb = Math.min(5, lb + .5); render(); } } }))));
+      const s = $('select', { 'aria-label': 'Preparación', on: { change: e => { prep = e.target.value; } } }, ...PREP.map(p => { const o = $('option', { txt: p }); if (p === prep) o.selected = true; return o; }));
+      pc.append($('label', { cls: 'lbl' }, 'Preparación', s));
+      const sinStock = stock[sel] < lb;
+      pc.append($('button', { type: 'button', cls: 'dbtn full sec', txt: sinStock ? 'No hay suficiente ' + sel.toLowerCase() : 'Agregar ' + lb + ' lb · ' + pesos(pr * lb), on: { click: () => { if (sinStock) return; cart.push([sel, lb, prep, pr * lb]); render(); } } }));
+      if (cart.length) { cart.forEach(([nm, l, p]) => pc.append($('small', { cls: 'linea', txt: l + ' lb ' + nm + ' · ' + p.toLowerCase() }))); const tot = cart.reduce((a, c) => a + c[3], 0);
+        pc.append($('button', { type: 'button', cls: 'dbtn full', txt: 'Hacer pedido · ' + pesos(tot), on: { click: () => { ped.unshift({ id: ++n, items: cart, tot, e: 0 }); cart.forEach(([nm, l]) => { stock[nm] -= l; }); mio = n; cart = []; render(); } } })); }
+    }
+    pp.replaceChildren(); const act = ped.filter(o => o.e < 3);
+    if (!act.length) pp.append($('p', { cls: 'vacio2', txt: 'Los pedidos nuevos llegan aquí, listos para preparar y despachar.' }));
+    act.forEach(o => pp.append($('div', { cls: 'tkt ' + (o.e ? 'prep' : 'nuevo') }, $('div', { cls: 'tkt-h' }, $('b', { txt: 'Pedido #' + o.id }), $('span', { cls: 'est2', txt: EST[o.e] })), $('ul', {}, ...o.items.map(([nm, l, p]) => $('li', { txt: l + ' lb ' + nm + ' (' + p.toLowerCase() + ')' }))), $('button', { type: 'button', cls: 'dbtn sm', txt: ['Aceptar y preparar', 'Despachar', 'Marcar entregado'][o.e], on: { click: () => { o.e++; render(); } } }))));
+    const ok = ped.filter(o => o.e === 3); if (ok.length) pp.append($('small', { cls: 'linea', txt: ok.length + ' entregado' + (ok.length > 1 ? 's' : '') + ' hoy' }));
+    pi.replaceChildren(); P.forEach(([nm, , max]) => { const v = stock[nm], bajo = v <= 3; pi.append($('div', { cls: 'inv2' }, $('div', { cls: 'inv2-h' }, $('b', { txt: nm }), $('span', { cls: bajo ? 'bajo2' : '', txt: v + ' lb' + (bajo ? ' · bajo' : '') })), $('div', { cls: 'barra' }, $('i', { style: 'width:' + Math.max(0, v / max * 100) + '%;background:' + (bajo ? '#e08a00' : 'var(--signal)') })))); });
+  }
+  render();
+})();
+
+/* Reservas: servicio → profesional → hora → agenda */
+(() => {
+  const S = [['Corte', 25000], ['Corte y barba', 35000], ['Barba', 15000]], PR = ['Andrés', 'Camilo'], H = ['9:00', '10:00', '11:00', '12:00', '2:00', '3:00', '4:00', '5:00'];
+  const occ = { 'Andrés|10:00': 'Ocupado', 'Andrés|3:00': 'Ocupado', 'Camilo|9:00': 'Ocupado', 'Camilo|11:00': 'Ocupado', 'Camilo|4:00': 'Ocupado' };
+  const [pc, pa] = caja('p-res', 'Reserva un turno', 'Escoge servicio, profesional y hora. La agenda del equipo se actualiza sola.', [['Celular del cliente', 'pcel'], ['Agenda del equipo']]);
+  let sv = null, pr = null, h = null, err = '', ok = '', ult = '', gana = 0;
+  function render() {
+    pc.replaceChildren();
+    if (ok) pc.append($('div', { cls: 'aviso ok', txt: ok }));
+    pc.append($('p', { cls: 'mini', txt: '1. Servicio' }), $('div', { cls: 'chips' }, ...S.map(([nm, p]) => $('button', { type: 'button', cls: 'chip' + (sv === nm ? ' on' : ''), txt: nm + ' · ' + pesos(p), on: { click: () => { sv = nm; err = ''; render(); } } }))));
+    pc.append($('p', { cls: 'mini', txt: '2. Con quién' }), $('div', { cls: 'chips' }, ...PR.map(p => $('button', { type: 'button', cls: 'chip' + (pr === p ? ' on' : ''), txt: p, on: { click: () => { pr = p; h = null; err = ''; render(); } } }))));
+    pc.append($('p', { cls: 'mini', txt: '3. Hora de hoy' }), $('div', { cls: 'horas' }, ...H.map(x => { const t = pr && occ[pr + '|' + x]; const b = $('button', { type: 'button', cls: 'chip' + (h === x ? ' on' : ''), txt: x, on: { click: () => { if (!pr || t) return; h = x; err = ''; render(); } } }); if (!pr || t) { b.setAttribute('aria-disabled', 'true'); b.classList.add('off'); } return b; })));
+    if (err) pc.append($('p', { cls: 'err', txt: err }));
+    pc.append($('button', { type: 'button', cls: 'dbtn full', txt: 'Reservar', on: { click: () => { if (!sv || !pr || !h) { err = 'Escoge servicio, profesional y hora.'; render(); return; } occ[pr + '|' + h] = sv; ult = pr + '|' + h; gana += S.find(s => s[0] === sv)[1]; ok = '✓ Listo: ' + sv + ' con ' + pr + ' a las ' + h; sv = h = null; render(); } } }));
+    pa.replaceChildren(); pa.append($('div', { cls: 'kpi' }, $('small', { txt: 'Reservas nuevas hoy' }), $('b', { txt: pesos(gana) })));
+    const tb = $('div', { cls: 'agenda2' }, $('span', {}), ...PR.map(p => $('b', { txt: p })));
+    H.forEach(x => { tb.append($('small', { txt: x })); PR.forEach(p => { const v = occ[p + '|' + x]; tb.append($('span', { cls: v ? (v === 'Ocupado' ? 'oc' : 'nv' + (ult === p + '|' + x ? ' ult' : '')) : '', txt: v || '' })); }); });
+    pa.append(tb);
+  }
+  render();
+})();
+
+/* Catálogo: color → talla → carrito → mensaje de WhatsApp */
+(() => {
+  const C = [['Rojo', '#c23845'], ['Verde', '#2f7d4f'], ['Beige', '#cdb48c']], T = { Adulto: ['S', 'M', 'L'], Niño: ['8', '10', '12'] }, PR = { Adulto: 89000, Niño: 59000 }, BAJO = ['Verde|L', 'Beige|10', 'Rojo|12'];
+  const [pp, pk] = caja('p-cat', 'Arma un pedido del catálogo', 'Cambia el color, escoge la talla y mira el mensaje que te llegaría por WhatsApp.', [['Producto', 'pcel'], ['Carrito y mensaje']]);
+  let col = 0, tipo = 'Adulto', ta = null, err = '', cart = [], msg = false;
+  const buzo = c => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 120 110'); s.setAttribute('class', 'buzo'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'Buzo navideño color ' + C[col][0]);
+    s.innerHTML = '<path d="M42 10h36l22 12 14 72-14 4-10-48v58H28V50l-10 48-14-4 14-72z" fill="' + c + '"/><path d="M48 10q12 12 24 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3"/><polyline points="30,52 38,44 46,52 54,44 62,52 70,44 78,52 86,44 90,48" fill="none" stroke="#fff" stroke-width="3"/><polyline points="30,90 38,82 46,90 54,82 62,90 70,82 78,90 86,82 90,86" fill="none" stroke="#fff" stroke-width="3"/><circle cx="60" cy="68" r="5" fill="#fff"/><rect x="28" y="100" width="64" height="8" fill="#000" fill-opacity=".15"/><rect x="4" y="92" width="14" height="6" transform="rotate(14 11 95)" fill="#000" fill-opacity=".15"/><rect x="102" y="92" width="14" height="6" transform="rotate(-14 109 95)" fill="#000" fill-opacity=".15"/>'; return s; };
+  function render() {
+    pp.replaceChildren();
+    pp.append($('div', { cls: 'buzo-w' }, buzo(tipo === 'Niño' ? C[col][1] : C[col][1])), $('div', { cls: 'fila' }, $('div', {}, $('b', { txt: 'Buzo Reno Rodolfo' }), $('small', { txt: tipo === 'Niño' ? 'Precio de niño' : 'Precio de adulto' })), $('b', { cls: 'precio2', txt: pesos(PR[tipo]) })));
+    pp.append($('p', { cls: 'mini', txt: 'Color · la foto cambia con el color' }), $('div', { cls: 'chips' }, ...C.map(([nm, hx], i) => $('button', { type: 'button', cls: 'sw' + (i === col ? ' on' : ''), 'aria-label': nm, style: 'background:' + hx, on: { click: () => { col = i; render(); } } }))));
+    pp.append($('div', { cls: 'chips' }, ...Object.keys(T).map(k => $('button', { type: 'button', cls: 'chip' + (k === tipo ? ' on' : ''), txt: k, on: { click: () => { tipo = k; ta = null; render(); } } }))), $('div', { cls: 'chips' }, ...T[tipo].map(x => $('button', { type: 'button', cls: 'chip' + (x === ta ? ' on' : ''), txt: x, on: { click: () => { ta = x; err = ''; render(); } } }))));
+    if (ta) { const bp = BAJO.includes(C[col][0] + '|' + ta); pp.append($('p', { cls: 'disp ' + (bp ? 'bp' : 'ei'), txt: bp ? 'Bajo pedido · llega en 8 a 12 días' : 'Entrega inmediata' })); }
+    if (err) pp.append($('p', { cls: 'err', txt: err }));
+    pp.append($('button', { type: 'button', cls: 'dbtn full', txt: 'Agregar al carrito', on: { click: () => { if (!ta) { err = 'Escoge una talla primero.'; render(); return; } cart.push({ c: C[col][0], t: ta, k: tipo, p: PR[tipo], bp: BAJO.includes(C[col][0] + '|' + ta) }); msg = false; render(); } } }));
+    pk.replaceChildren();
+    if (!cart.length) pk.append($('p', { cls: 'vacio2', txt: 'Agrega buzos y aquí verás el carrito.' }));
+    cart.forEach((it, i) => pk.append($('div', { cls: 'fila' }, $('div', {}, $('b', { txt: 'Reno Rodolfo · ' + it.c }), $('small', { txt: 'Talla ' + it.t + (it.k === 'Niño' ? ' (niño)' : '') + ' · ' + (it.bp ? 'bajo pedido' : 'entrega inmediata') })), $('div', { cls: 'cta-d' }, $('b', { txt: pesos(it.p) }), $('button', { type: 'button', cls: 'x', 'aria-label': 'Quitar', txt: '×', on: { click: () => { cart.splice(i, 1); msg = false; render(); } } })))));
+    if (cart.length) { const tot = cart.reduce((a, b) => a + b.p, 0); pk.append($('div', { cls: 'fila tot2' }, $('b', { txt: 'Total' }), $('b', { txt: pesos(tot) })), $('button', { type: 'button', cls: 'dbtn full wa', txt: 'Pedir por WhatsApp', on: { click: () => { msg = true; render(); } } }));
+      if (msg) pk.append($('div', { cls: 'wa-b' }, $('small', { txt: 'Así te llega el mensaje:' }), $('p', { txt: 'Hola, quiero hacer este pedido:\n' + cart.map(it => '• Reno Rodolfo ' + it.c + ', talla ' + it.t + (it.k === 'Niño' ? ' niño' : '') + ' — ' + pesos(it.p) + (it.bp ? ' (bajo pedido)' : '')).join('\n') + '\nTotal: ' + pesos(tot) }))); }
+  }
+  render();
+})();
 
 /* ---------- A tu medida: botones que escoge el negocio ---------- */
 const OPC = [['Llamar al mesero',1],['Pedir la cuenta',1],['Otra ronda',1],['Necesito algo',0],['Traer servilletas',0],['Pedir para llevar',0],['Calificar la atención',0],['Pagar con Nequi',0]];
