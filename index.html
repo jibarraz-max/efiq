@@ -240,6 +240,32 @@ section{padding:84px 0}
 .neg i{font-style:normal;font-weight:700;color:var(--signal)}
 @media (max-width:900px){.negocios{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.negocios{grid-template-columns:1fr}}
+
+/* ---------- a tu medida ---------- */
+.opc{font-size:15px;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:10px 14px;margin:0 0 18px}
+.opc b{color:var(--ink)}
+.atm{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,44px)}
+.atm h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;margin:10px 0 12px}
+.atm-txt>p{color:var(--muted);font-size:17px;margin-bottom:18px}
+.atm-pts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.atm-pts li{padding-left:16px;border-left:3px solid var(--signal);font-size:15px;color:var(--muted)}
+.atm-pts b{display:block;color:var(--ink);font-size:16px}
+.atm-demo{display:grid;grid-template-columns:1fr 210px;gap:16px;align-items:start}
+.atm-h{font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+#opts{display:flex;flex-wrap:wrap;gap:8px}
+#opts button{font:inherit;font-size:14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:99px;padding:7px 12px;cursor:pointer;transition:all .15s}
+#opts button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+#opts button[aria-pressed="true"]::before{content:"✓ "}
+.atm-nota{font-size:14px;color:var(--muted);margin:12px 0 0}
+.atm-cel{background:var(--ink);border-radius:28px;padding:8px;box-shadow:0 26px 50px -22px rgba(0,0,0,.4)}
+.atm-cel-h{background:var(--signal);color:var(--signal-ink);border-radius:21px 21px 6px 6px;padding:18px 14px 12px}
+.atm-cel-h b{display:block;font-size:18px}.atm-cel-h small{font:600 11px var(--mono);opacity:.85;text-transform:uppercase}
+.atm-bts{background:var(--paper);border-radius:6px 6px 21px 21px;padding:10px;display:flex;flex-direction:column;gap:7px;min-height:230px}
+.atm-bts span{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600;animation:entra .35s cubic-bezier(.2,.9,.3,1.2)}
+.atm-bts em{font-style:normal;color:var(--muted);font-size:13px;text-align:center;padding:30px 6px}
+@media (max-width:980px){.atm{grid-template-columns:1fr}}
+@media (max-width:520px){.atm-demo{grid-template-columns:1fr}.atm-cel{max-width:240px;margin:0 auto}}
+
 /* ---------- comparación ---------- */
 .tabla-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .cmp{width:100%;border-collapse:collapse;min-width:560px}
@@ -315,7 +341,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <a class="marca" href="#inicio" aria-label="Inicio"><span class="chip"><i></i></span><span class="logo">Efi<b>q</b></span></a>
     <nav class="nav" aria-label="Secciones">
       <a href="#sistemas">Sistemas</a>
-      <a href="#negocios">Para tu negocio</a>
+      <a href="#medida">A tu medida</a>
       <a href="#como">Cómo trabajamos</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
@@ -330,12 +356,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div>
         <div class="eyebrow">Sistemas digitales para negocios locales</div>
         <h1>Tu local, conectado de <em>la mesa a la caja</em>.</h1>
-        <p class="lead">Cartas digitales con NFC, pedidos que llegan solos a la cocina, domicilios con inventario, reservas en línea y catálogos que venden por WhatsApp. Funcionan en cualquier celular, sin descargar apps, y quedan listos en pocos días.</p>
+        <p class="lead">Cartas digitales con NFC, meseros que toman el pedido en su celular y llega solo a la cocina, domicilios con inventario, reservas en línea y catálogos que venden por WhatsApp. Funcionan en cualquier celular, sin descargar apps, y se arman a la medida de tu negocio.</p>
         <div class="ctas">
           <a class="btn signal" data-wa href="#contacto">Quiero una demo para mi negocio</a>
           <a class="btn ghost" href="#sistemas">Ver los sistemas</a>
         </div>
-        <div class="sellos"><span>Prueba gratis antes de pagar</span><span>Tú cambias precios y agotados</span><span>Soporte directo por WhatsApp</span></div>
+        <div class="sellos"><span>Prueba gratis antes de pagar</span><span>A la medida de tu negocio</span><span>Atendemos en toda Colombia</span></div>
       </div>
 
       <div class="demo" aria-label="Demostración: pide desde la mesa y mira cómo llega al panel">
@@ -366,7 +392,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div><b>Sin apps</b><span>El cliente acerca el celular al sticker NFC o escanea el QR, y listo.</span></div>
       <div><b>Tú tienes el control</b><span>Cambias precios, platos y agotados desde tu celular, al instante.</span></div>
       <div><b>Menos errores</b><span>El pedido llega escrito a cocina y a caja. Nada se pierde en el camino.</span></div>
-      <div><b>Hecho para ti</b><span>Con tu carta, tus colores y tus estaciones de trabajo.</span></div>
+      <div><b>A tu medida</b><span>Los botones y funciones que tu negocio necesite, nada de más.</span></div>
     </div>
   </div>
 
@@ -387,13 +413,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
       <div class="vit" role="tabpanel" id="p-rest" aria-labelledby="t-rest">
         <div class="vit-txt">
-          <h3>Del celular del cliente a la cocina, sin papelitos.</h3>
-          <p class="que">La mesa ve la carta y pide o llama al mesero. Cada pedido llega a su estación y la caja tiene la cuenta lista.</p>
+          <h3>Tus meseros, más rápidos. Tus pedidos, sin papelitos.</h3>
+          <p class="que">El servicio en la mesa sigue siendo lo más importante. Tu mesero atiende como siempre, pero toma el pedido en su celular y llega escrito a cocina y caja.</p>
           <ol class="pasos">
-            <li><b>1</b><div><strong>El cliente pide desde la mesa</strong><span>Acerca el celular al sticker NFC o escanea el QR. Sin descargar nada.</span></div></li>
+            <li><b>1</b><div><strong>El mesero toma el pedido en la mesa</strong><span>Desde su celular, con la carta y los precios siempre al día.</span></div></li>
             <li><b>2</b><div><strong>Cocina y parrilla lo reciben al instante</strong><span>Separado entre mesas y para llevar, con su estado: nuevo, preparando, listo.</span></div></li>
             <li><b>3</b><div><strong>La caja cobra por mesa o por nombre</strong><span>Con propina, cancelaciones con motivo y el total del día.</span></div></li>
           </ol>
+          <p class="opc"><b>Opcional:</b> la mesa también puede ver la carta con NFC o QR, llamar al mesero o pedir la cuenta desde el celular.</p>
           <div class="ideal"><b>Ideal para</b><span>Restaurantes</span><span>Asaderos</span><span>Bares</span><span>Almuerzos</span></div>
         </div>
         <div class="escena">
@@ -468,6 +495,35 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
   </section>
 
+  <!-- A TU MEDIDA -->
+  <section id="medida" style="padding-top:10px">
+    <div class="wrap">
+      <div class="atm">
+        <div class="atm-txt">
+          <div class="eyebrow">El sistema se adapta a ti</div>
+          <h2>Tú decides qué botones y funciones tiene.</h2>
+          <p>Cada negocio trabaja distinto. Por eso armamos el sistema con lo que tú necesitas, y lo cambiamos cuando quieras.</p>
+          <ul class="atm-pts">
+            <li><b>Primero el servicio</b>Digitalizamos a tus meseros para que atiendan más rápido. Que el cliente pida solo desde su celular es opcional.</li>
+            <li><b>Solo lo que usas</b>Activamos los botones que sirven en tu local y quitamos los que no.</li>
+            <li><b>Crece contigo</b>Empiezas con la carta y, cuando quieras, sumas pedidos, cocina, caja o domicilios.</li>
+          </ul>
+        </div>
+        <div class="atm-demo">
+          <div class="atm-opts" role="group" aria-label="Escoge los botones de la mesa">
+            <p class="atm-h">Escoge los botones de la mesa</p>
+            <div id="opts"></div>
+            <p class="atm-nota">¿Necesitas otro? Lo agregamos.</p>
+          </div>
+          <div class="atm-cel" aria-live="polite">
+            <div class="atm-cel-h"><b>Mesa 6</b><small>¿Necesitas algo?</small></div>
+            <div id="botones" class="atm-bts"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PARA TU NEGOCIO -->
   <section id="negocios" style="padding-top:10px">
     <div class="wrap">
@@ -505,11 +561,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <section id="incluye" style="padding-top:10px">
     <div class="wrap">
       <div class="incluye">
-        <div><div class="eyebrow">En todos los sistemas</div><h2>Todo esto viene incluido.</h2><p>Pagas una instalación y una mensualidad según el sistema y el tamaño de tu negocio. Te doy el valor exacto en la visita.</p></div>
+        <div><div class="eyebrow">En todos los sistemas</div><h2>Todo esto viene incluido.</h2><p>Pagas una instalación y una mensualidad según el sistema y el tamaño de tu negocio. Te doy el valor exacto por WhatsApp o en una videollamada.</p></div>
         <ul>
           <li><b>Montaje con tu marca</b>Tu carta o tus productos, tus colores y tu logo.</li>
-          <li><b>Stickers NFC y QR</b>Instalados en tus mesas o para tu mostrador.</li>
-          <li><b>Capacitación</b>Le enseño a tu equipo a usarlo el primer día.</li>
+          <li><b>Stickers NFC y QR</b>Te los envío listos para pegar, a cualquier ciudad.</li>
+          <li><b>Capacitación</b>Por videollamada, con tu equipo, desde el primer día.</li>
           <li><b>Cambios pequeños</b>Precios, platos, fotos y horarios cuando los necesites.</li>
           <li><b>Soporte por WhatsApp</b>Directo conmigo, sin call centers.</li>
           <li><b>Prueba gratis</b>Unos días con tus clientes antes de pagar.</li>
@@ -531,10 +587,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <h3>ASÍ TRABAJAMOS</h3>
         <div class="sub">pedido #001 · tu negocio</div>
         <ol>
-          <li><b>01</b><div><strong>Visita y demo</strong><span>Voy a tu local, te muestro el sistema funcionando y entiendo cómo trabajas.</span></div></li>
-          <li><b>02</b><div><strong>Lo armo con tu negocio</strong><span>Tu carta, tus productos, tus colores y tus estaciones.</span></div></li>
+          <li><b>01</b><div><strong>Demo por videollamada</strong><span>Te muestro el sistema funcionando y entiendo cómo trabajas, estés en la ciudad que estés.</span></div></li>
+          <li><b>02</b><div><strong>Lo armo a tu medida</strong><span>Tu carta, tus colores, tus estaciones y los botones que necesites.</span></div></li>
           <li><b>03</b><div><strong>Prueba gratis</strong><span>Lo usas unos días con tus clientes antes de pagar.</span></div></li>
-          <li><b>04</b><div><strong>Instalación y soporte</strong><span>Instalo los stickers NFC, capacito a tu equipo y quedo atento por WhatsApp.</span></div></li>
+          <li><b>04</b><div><strong>Envío y soporte</strong><span>Te envío los stickers NFC y QR, capacito a tu equipo por videollamada y quedo atento por WhatsApp.</span></div></li>
         </ol>
         <div class="tot"><span>Instalación + mensualidad</span><span>Según tu negocio</span></div>
       </div>
@@ -546,11 +602,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="wrap">
       <div class="sec-h"><div class="eyebrow">Preguntas frecuentes</div><h2>Lo que más me preguntan</h2></div>
       <div class="faq">
+        <details><summary>¿Trabajan en mi ciudad?</summary><p>Sí, en cualquier ciudad de Colombia. La demo y la capacitación son por videollamada, los stickers NFC y QR te llegan por transportadora listos para pegar, y el soporte es por WhatsApp.</p></details>
+        <details><summary>¿Puedo pedir botones o funciones distintas?</summary><p>Sí. El sistema se arma con lo que tu negocio necesita: llamar al mesero, pedir la cuenta, otra ronda, pedir para llevar o lo que se te ocurra. Si algo no lo usas, lo quitamos.</p></details>
+        <details><summary>¿Mis meseros dejan de atender las mesas?</summary><p>No. El servicio sigue siendo lo más importante. El sistema les ayuda a tomar el pedido en su celular y enviarlo directo a cocina y caja, sin papelitos. Que el cliente pida desde su celular es opcional.</p></details>
         <details><summary>¿Mis clientes tienen que descargar algo?</summary><p>No. Acercan el celular al sticker NFC o escanean el código QR y la carta se abre en el navegador. Funciona en Android y iPhone.</p></details>
         <details><summary>¿Puedo cambiar los precios yo mismo?</summary><p>Sí. Tienes un editor desde tu celular para cambiar precios, nombres, platos y agotados. Los cambios se ven al instante en todas las mesas y quedan guardados.</p></details>
         <details><summary>¿Qué equipos necesito?</summary><p>Con los celulares que ya tienen tus meseros suele ser suficiente. Para cocina o caja sirve una tablet o un computador sencillo. Si los necesitas, te cotizo los equipos o los compras tú, como prefieras.</p></details>
         <details><summary>¿Cuánto cuesta?</summary><p>Una instalación y una mensualidad que dependen del sistema y del número de mesas o productos. Hay descuento si pagas varios meses por adelantado. Escríbeme y te doy el valor exacto para tu negocio.</p></details>
-        <details><summary>¿Puedo probarlo antes de pagar?</summary><p>Sí. Lo dejo funcionando unos días en tu local para que lo pruebes con clientes reales. Si no te sirve, no pagas.</p></details>
+        <details><summary>¿Puedo probarlo antes de pagar?</summary><p>Sí. Lo dejo funcionando unos días en tu negocio para que lo pruebes con clientes reales. Si no te sirve, no pagas.</p></details>
         <details><summary>¿Qué pasa si algo falla o quiero cambiar algo?</summary><p>Me escribes por WhatsApp y lo reviso. Los cambios pequeños, como precios, platos o colores, están incluidos en la mensualidad.</p></details>
       </div>
     </div>
@@ -575,7 +634,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 </main>
 
 <footer>
-  <div class="wrap"><span><span data-marca>Efiq</span> · Tu negocio, más eficiente</span><span>Bogotá · Pasto · Colombia</span></div>
+  <div class="wrap"><span><span data-marca>Efiq</span> · Tu negocio, más eficiente</span><span>Atendemos negocios en toda Colombia</span></div>
 </footer>
 
 <script>
@@ -598,6 +657,18 @@ tabs.forEach((t, i) => {
   t.onkeydown = e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); abrir(n.dataset.tab); } };
 });
 document.querySelectorAll('[data-ir]').forEach(a => a.addEventListener('click', () => abrir(a.dataset.ir)));
+
+/* ---------- A tu medida: botones que escoge el negocio ---------- */
+const OPC = [['Llamar al mesero',1],['Pedir la cuenta',1],['Otra ronda',1],['Necesito algo',0],['Traer servilletas',0],['Pedir para llevar',0],['Calificar la atención',0],['Pagar con Nequi',0]];
+const opts = document.getElementById('opts'), bts = document.getElementById('botones');
+function pintar() {
+  bts.innerHTML = '';
+  const on = [...opts.querySelectorAll('[aria-pressed="true"]')];
+  if (!on.length) { const e = document.createElement('em'); e.textContent = 'Escoge al menos un botón'; bts.appendChild(e); }
+  on.forEach(b => { const s = document.createElement('span'); s.textContent = b.dataset.n; bts.appendChild(s); });
+}
+OPC.forEach(([n, a]) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.n = n; b.textContent = n; b.setAttribute('aria-pressed', a ? 'true' : 'false'); b.onclick = () => { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); pintar(); }; opts.appendChild(b); });
+pintar();
 
 /* ---------- Demo de la portada ---------- */
 const PLATOS = [['Bandeja paisa', 34000], ['Churrasco 300 g', 38000], ['Limonada de coco', 9000], ['Arroz con pollo', 26000]];
