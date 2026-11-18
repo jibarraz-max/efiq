@@ -736,17 +736,17 @@ function caja(id, titulo, sub, panes) {
 /* Restaurante: como mesero o como cliente → cocina → caja */
 (() => {
   const P = [['Bandeja paisa', 34000], ['Churrasco 300 g', 38000], ['Arroz con pollo', 26000], ['Limonada de coco', 9000], ['Cerveza', 7000]];
-  const [pm, pc, pk] = caja('p-rest', 'Pruébalo como mesero o como cliente', 'Cambia de vista: toma el pedido como mesero, o pide y llama al mesero desde la mesa.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
+  const [pm, pc, pk] = caja('p-rest', 'Pruébalo como cliente o como mesero', 'Cambia de vista: pide y llama al mesero desde la mesa, o toma el pedido como mesero.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
   const box = pm.closest('.dbox'), head = pm.parentElement.querySelector('.pane-h');
   const seg = $('div', { cls: 'seg', role: 'group', 'aria-label': 'Ver como' }); box.insertBefore(seg, box.querySelector('.dgrid'));
-  let rol = 'mesero', mesa = 1, cart = {}, cartC = {}, tks = [], n = 0, cobrado = 0, aviso = '', avisoC = '', llam = [];
+  let rol = 'cliente', mesa = 1, cart = {}, cartC = {}, tks = [], n = 0, cobrado = 0, aviso = '', avisoC = '', llam = [];
   const MC = 4;
   function filas(c) { return P.map(([nm, pr]) => { const q = c[nm] || 0; return $('div', { cls: 'fila' }, $('div', {}, $('b', { txt: nm }), $('small', { txt: pesos(pr) })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Quitar ' + nm, txt: '−', on: { click: () => { if (q) { c[nm] = q - 1; render(); } } } }), $('span', { txt: q }), $('button', { type: 'button', 'aria-label': 'Agregar ' + nm, txt: '+', on: { click: () => { c[nm] = q + 1; render(); } } }))); }); }
   const total = c => P.reduce((s, [nm, pr]) => s + (c[nm] || 0) * pr, 0);
   function enviar(c, m, quien) { tks.unshift({ id: ++n, mesa: m, quien, items: P.filter(([nm]) => c[nm]).map(([nm]) => [c[nm], nm]), tot: total(c), est: 'nuevo' }); for (const k in c) delete c[k]; }
   function llamar(tipo) { if (!llam.some(l => l.tipo === tipo)) llam.push({ mesa: MC, tipo }); avisoC = tipo === 'cuenta' ? '✓ Pediste la cuenta. El mesero ya la trae.' : '✓ Llamaste al mesero. Ya viene a tu mesa.'; render(); }
   function render() {
-    seg.replaceChildren(...[['mesero', 'Como mesero'], ['cliente', 'Como cliente']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
+    seg.replaceChildren(...[['cliente', 'Como cliente'], ['mesero', 'Como mesero']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
     pm.replaceChildren();
     if (rol === 'cliente') {
       head.textContent = 'Celular del cliente · mesa ' + MC;
