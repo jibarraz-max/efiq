@@ -746,7 +746,7 @@ function caja(id, titulo, sub, panes) {
   function enviar(c, m, quien) { tks.unshift({ id: ++n, mesa: m, quien, items: P.filter(([nm]) => c[nm]).map(([nm]) => [c[nm], nm]), tot: total(c), est: 'nuevo' }); for (const k in c) delete c[k]; }
   function llamar(tipo) { if (!llam.some(l => l.tipo === tipo)) llam.push({ mesa: MC, tipo }); avisoC = tipo === 'cuenta' ? '✓ Pediste la cuenta. El mesero ya la trae.' : '✓ Llamaste al mesero. Ya viene a tu mesa.'; render(); }
   function render() {
-    seg.replaceChildren(...[['mesero', 'Ver como mesero'], ['cliente', 'Ver como cliente en la mesa']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
+    seg.replaceChildren(...[['mesero', 'Como mesero'], ['cliente', 'Como cliente']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
     pm.replaceChildren();
     if (rol === 'cliente') {
       head.textContent = 'Celular del cliente · mesa ' + MC;
