@@ -272,7 +272,7 @@ section{padding:84px 0}
 .dbox-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:16px}
 .dbox-h b{font-family:var(--display);font-size:22px}.dbox-h small{color:var(--muted);font-size:15px;flex-basis:100%}
 .dtag{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;background:var(--signal);color:var(--signal-ink);padding:4px 10px;border-radius:99px}
-.dgrid{display:grid;gap:14px}.dgrid.d3{grid-template-columns:1.05fr 1fr 1fr}.dgrid.d2{grid-template-columns:1fr 1.2fr}
+.dgrid{display:grid;gap:14px}.dgrid.d3{grid-template-columns:1.05fr 1fr 1fr}.dgrid.d4{grid-template-columns:1fr 1fr}.dgrid.d2{grid-template-columns:1fr 1.2fr}
 .pane{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:340px}
 .pane-h{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line);background:var(--card)}
 .pane.pcel .pane-h{background:var(--ink);color:var(--paper)}
@@ -291,6 +291,7 @@ section{padding:84px 0}
 .tkt{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--signal);border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;animation:entra .4s cubic-bezier(.2,.9,.3,1.2)}
 .tkt.prep{border-left-color:#e08a00}.tkt-h{display:flex;justify-content:space-between;align-items:center}.tkt ul{margin:0;padding-left:18px;font-size:13px}
 .est2{font:700 10px var(--mono);text-transform:uppercase;background:var(--warn-bg);color:var(--signal);padding:3px 7px;border-radius:99px}.tkt.prep .est2{background:#fff3dc;color:#9a5d00}
+.vacio2.sm{padding:12px 8px}.llam.flash{animation:entra .4s,flash 1.2s ease-out}@keyframes flash{0%{box-shadow:0 0 0 0 rgba(224,138,0,.7)}100%{box-shadow:0 0 0 14px rgba(224,138,0,0)}}
 .vacio2{color:var(--muted);font-size:13px;text-align:center;padding:30px 8px;border:1.5px dashed var(--line);border-radius:12px;margin:0}
 .aviso{background:var(--warn-bg);color:var(--signal);font-weight:700;font-size:13px;border-radius:10px;padding:8px 10px}.aviso.ok{background:var(--ok-bg);color:var(--ok)}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px}.kpi small{display:block;color:var(--muted);font-size:12px}.kpi b{font:700 20px var(--mono)}
@@ -329,7 +330,7 @@ section{padding:84px 0}
 .carta-mini{background:var(--signal);color:var(--signal-ink);border-radius:12px;padding:12px}.carta-mini b{display:block}.carta-mini small{font:600 11px var(--mono);text-transform:uppercase;opacity:.85}
 .dos{display:grid;grid-template-columns:1fr 1fr;gap:6px}.dos .dbtn{font-size:13px;padding:10px 6px}
 @media (max-width:980px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr 1fr}.dgrid.d3 .pane:first-child{grid-column:1/-1}}
-@media (max-width:640px){.dgrid.d3,.dgrid.d2{grid-template-columns:1fr}.pane{min-height:0}}
+@media (max-width:640px){.dgrid.d3,.dgrid.d2,.dgrid.d4{grid-template-columns:1fr}.pane{min-height:0}}
 
 /* ---------- comparación ---------- */
 .tabla-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
@@ -733,39 +734,34 @@ function caja(id, titulo, sub, panes) {
   return panes.map(([n, cls]) => { const body = $('div', { cls: 'pane-b' }); g.append($('div', { cls: 'pane ' + (cls || '') }, $('div', { cls: 'pane-h', txt: n }), body)); return body; });
 }
 
-/* Restaurante: como mesero o como cliente → cocina → caja */
+/* Restaurante: cliente y mesero a la vez → cocina → caja */
 (() => {
   const P = [['Bandeja paisa', 34000], ['Churrasco 300 g', 38000], ['Arroz con pollo', 26000], ['Limonada de coco', 9000], ['Cerveza', 7000]];
-  const [pm, pc, pk] = caja('p-rest', 'Pruébalo como cliente o como mesero', 'Cambia de vista: pide y llama al mesero desde la mesa, o toma el pedido como mesero.', [['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
-  const box = pm.closest('.dbox'), head = pm.parentElement.querySelector('.pane-h');
-  const seg = $('div', { cls: 'seg', role: 'group', 'aria-label': 'Ver como' }); box.insertBefore(seg, box.querySelector('.dgrid'));
-  let rol = 'cliente', mesa = 1, cart = {}, cartC = {}, tks = [], n = 0, cobrado = 0, aviso = '', avisoC = '', llam = [];
   const MC = 4;
+  const [pcl, pm, pc, pk] = caja('p-rest', 'Mira cómo se conecta todo', 'Toca un botón en el celular del cliente y mira al instante cómo le llega al mesero, a la cocina y a la caja.', [['Celular del cliente · mesa ' + MC, 'pcel'], ['Celular del mesero', 'pcel'], ['Pantalla de cocina'], ['Caja']]);
+  let mesa = 1, cart = {}, cartC = {}, tks = [], n = 0, cobrado = 0, aviso = '', avisoC = '', llam = [], nuevo = -1;
   function filas(c) { return P.map(([nm, pr]) => { const q = c[nm] || 0; return $('div', { cls: 'fila' }, $('div', {}, $('b', { txt: nm }), $('small', { txt: pesos(pr) })), $('div', { cls: 'qty' }, $('button', { type: 'button', 'aria-label': 'Quitar ' + nm, txt: '−', on: { click: () => { if (q) { c[nm] = q - 1; render(); } } } }), $('span', { txt: q }), $('button', { type: 'button', 'aria-label': 'Agregar ' + nm, txt: '+', on: { click: () => { c[nm] = q + 1; render(); } } }))); }); }
   const total = c => P.reduce((s, [nm, pr]) => s + (c[nm] || 0) * pr, 0);
   function enviar(c, m, quien) { tks.unshift({ id: ++n, mesa: m, quien, items: P.filter(([nm]) => c[nm]).map(([nm]) => [c[nm], nm]), tot: total(c), est: 'nuevo' }); for (const k in c) delete c[k]; }
-  function llamar(tipo) { if (!llam.some(l => l.tipo === tipo)) llam.push({ mesa: MC, tipo }); avisoC = tipo === 'cuenta' ? '✓ Pediste la cuenta. El mesero ya la trae.' : '✓ Llamaste al mesero. Ya viene a tu mesa.'; render(); }
+  function llamar(tipo) { if (!llam.some(l => l.tipo === tipo)) { llam.push({ mesa: MC, tipo }); nuevo = llam.length - 1; } avisoC = tipo === 'cuenta' ? '✓ Pediste la cuenta. El mesero ya la trae.' : '✓ Llamaste al mesero. Ya viene a tu mesa.'; render(); }
   function render() {
-    seg.replaceChildren(...[['cliente', 'Como cliente'], ['mesero', 'Como mesero']].map(([k, t]) => { const b = $('button', { type: 'button', 'aria-pressed': rol === k ? 'true' : 'false', txt: t, on: { click: () => { rol = k; render(); } } }); if (k === 'mesero' && llam.length) b.append($('i', { cls: 'badge2', txt: llam.length })); return b; }));
+    pcl.replaceChildren();
+    if (avisoC) pcl.append($('div', { cls: 'aviso ok', txt: avisoC }));
+    pcl.append($('div', { cls: 'carta-mini' }, $('b', { txt: 'La Brasa del Barrio' }), $('small', { txt: 'Mesa ' + MC + ' · carta digital' })));
+    pcl.append($('div', { cls: 'dos' }, $('button', { type: 'button', cls: 'dbtn sec', txt: '🙋 Llamar al mesero', on: { click: () => llamar('mesero') } }), $('button', { type: 'button', cls: 'dbtn sec', txt: '🧾 Pedir la cuenta', on: { click: () => llamar('cuenta') } })));
+    pcl.append(...filas(cartC)); const tc = total(cartC);
+    pcl.append($('button', { type: 'button', cls: 'dbtn full', txt: tc ? 'Enviar mi pedido a cocina · ' + pesos(tc) : 'Agrega platos para pedir', on: { click: () => { if (!tc) return; enviar(cartC, MC, 'cliente'); avisoC = '✓ Tu pedido llegó a la cocina.'; render(); } } }));
+    pcl.append($('small', { cls: 'linea', txt: 'Pedir desde la mesa es opcional: puedes dejar solo la carta y los botones.' }));
     pm.replaceChildren();
-    if (rol === 'cliente') {
-      head.textContent = 'Celular del cliente · mesa ' + MC;
-      if (avisoC) pm.append($('div', { cls: 'aviso ok', txt: avisoC }));
-      pm.append($('div', { cls: 'carta-mini' }, $('b', { txt: 'La Brasa del Barrio' }), $('small', { txt: 'Mesa ' + MC + ' · carta digital' })));
-      pm.append($('div', { cls: 'dos' }, $('button', { type: 'button', cls: 'dbtn sec', txt: '🙋 Llamar al mesero', on: { click: () => llamar('mesero') } }), $('button', { type: 'button', cls: 'dbtn sec', txt: '🧾 Pedir la cuenta', on: { click: () => llamar('cuenta') } })));
-      pm.append(...filas(cartC)); const t = total(cartC);
-      pm.append($('button', { type: 'button', cls: 'dbtn full', txt: t ? 'Enviar mi pedido a cocina · ' + pesos(t) : 'Agrega platos para pedir', on: { click: () => { if (!t) return; enviar(cartC, MC, 'cliente'); avisoC = '✓ Tu pedido llegó a la cocina.'; render(); } } }));
-      pm.append($('small', { cls: 'linea', txt: 'Pedir desde la mesa es opcional: puedes dejar solo la carta y los botones.' }));
-    } else {
-      head.textContent = 'Celular del mesero';
-      llam.forEach((l, i) => pm.append($('div', { cls: 'llam' }, $('span', { txt: (l.tipo === 'cuenta' ? '🧾 Mesa ' + l.mesa + ' pide la cuenta' : '🙋 Mesa ' + l.mesa + ' te llama') }), $('button', { type: 'button', cls: 'dbtn sm', txt: 'Atender', on: { click: () => { llam.splice(i, 1); render(); } } }))));
-      if (aviso) pm.append($('div', { cls: 'aviso', txt: aviso }));
-      pm.append($('div', { cls: 'chips' }, ...[1, 2, 3, 4, 5, 6].map(m => $('button', { type: 'button', cls: 'chip' + (m === mesa ? ' on' : ''), txt: 'Mesa ' + m, on: { click: () => { mesa = m; render(); } } }))));
-      pm.append(...filas(cart)); const t = total(cart);
-      pm.append($('button', { type: 'button', cls: 'dbtn full', txt: t ? 'Enviar mesa ' + mesa + ' a cocina · ' + pesos(t) : 'Agrega platos para enviar', on: { click: () => { if (!t) return; enviar(cart, mesa, 'mesero'); aviso = ''; render(); } } }));
-    }
+    if (!llam.length && !aviso) pm.append($('p', { cls: 'vacio2 sm', txt: 'Los llamados de las mesas te aparecen aquí.' }));
+    llam.forEach((l, i) => pm.append($('div', { cls: 'llam' + (i === nuevo ? ' flash' : '') }, $('span', { txt: l.tipo === 'cuenta' ? '🧾 Mesa ' + l.mesa + ' pide la cuenta' : '🙋 Mesa ' + l.mesa + ' te llama' }), $('button', { type: 'button', cls: 'dbtn sm', txt: 'Atender', on: { click: () => { llam.splice(i, 1); nuevo = -1; render(); } } }))));
+    nuevo = -1;
+    if (aviso) pm.append($('div', { cls: 'aviso', txt: aviso }));
+    pm.append($('div', { cls: 'chips' }, ...[1, 2, 3, 4, 5, 6].map(m => $('button', { type: 'button', cls: 'chip' + (m === mesa ? ' on' : ''), txt: 'Mesa ' + m, on: { click: () => { mesa = m; render(); } } }))));
+    pm.append(...filas(cart)); const tm = total(cart);
+    pm.append($('button', { type: 'button', cls: 'dbtn full', txt: tm ? 'Enviar mesa ' + mesa + ' a cocina · ' + pesos(tm) : 'Agrega platos para enviar', on: { click: () => { if (!tm) return; enviar(cart, mesa, 'mesero'); aviso = ''; render(); } } }));
     pc.replaceChildren(); const enC = tks.filter(t => t.est === 'nuevo' || t.est === 'prep');
-    if (!enC.length) pc.append($('p', { cls: 'vacio2', txt: 'Los pedidos del mesero o de la mesa aparecen aquí.' }));
+    if (!enC.length) pc.append($('p', { cls: 'vacio2', txt: 'Los pedidos del cliente o del mesero aparecen aquí.' }));
     enC.forEach(t => pc.append($('div', { cls: 'tkt ' + t.est }, $('div', { cls: 'tkt-h' }, $('b', { txt: 'Mesa ' + t.mesa }), $('span', { cls: 'est2', txt: t.est === 'nuevo' ? 'Nuevo' : 'Preparando' })), $('small', { cls: 'linea', txt: t.quien === 'cliente' ? 'Pedido desde la mesa' : 'Tomado por el mesero' }), $('ul', {}, ...t.items.map(([q, nm]) => $('li', { txt: q + '× ' + nm }))), $('button', { type: 'button', cls: 'dbtn sm', txt: t.est === 'nuevo' ? 'Empezar a preparar' : 'Marcar listo', on: { click: () => { if (t.est === 'nuevo') t.est = 'prep'; else { t.est = 'listo'; aviso = '🔔 Mesa ' + t.mesa + ': el pedido está listo para llevar'; if (t.mesa === MC) avisoC = '🍽️ Tu pedido ya está listo, va para tu mesa.'; } render(); } } }))));
     pk.replaceChildren(); const mesas = {}; tks.filter(t => t.est === 'listo').forEach(t => { mesas[t.mesa] = (mesas[t.mesa] || 0) + t.tot; });
     pk.append($('div', { cls: 'kpi' }, $('small', { txt: 'Cobrado hoy' }), $('b', { txt: pesos(cobrado) })));
